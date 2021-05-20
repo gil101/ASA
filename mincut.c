@@ -7,15 +7,27 @@
 
 using namespace	std;
 
+
+vector <Vertex*> graph;
+
+
 /************************************************************************
 For vertex v there is a path that goes to a next vertex with some weight
 *************************************************************************/
-//why a struct of paths? There is more than a possible way from v and each way as weight
-struct path {
+struct Path {                       //why a struct of paths? There is more than a possible way from v and each way as weight
 	struct vertex* v;
 	struct path *next;
 	struct path *nextResidual;
 	int weight;
+};
+
+
+struct Vertex{
+	int id;
+	struct Vertex* predecessor;
+	struct Path* path;              //each vertex has a list of possible paths
+	int minCost;                        //mincost,  to find later
+	char color;                         //at the end of the algo this will give us the mincut
 };
 
 
@@ -30,6 +42,9 @@ void init() {
     // X é o 0 e Y é o nr de processos +1
     int source = 0, sink = procNum + 1;
 
+    //Alocate the number of vertices to the graph
+	for (int i = 0; i <= sink ; i++)
+		graph.push_back(new Vertex[1]);
 
 }
 
